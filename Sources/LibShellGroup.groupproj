@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{C6DF8931-14C9-4CC4-83AD-9B1A1600488C}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="LibShell.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\..\LibCLIShell\Sources\LibCLIShell.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="LibShell">
+        <MSBuild Projects="LibShell.dproj"/>
+    </Target>
+    <Target Name="LibShell:Clean">
+        <MSBuild Projects="LibShell.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="LibShell:Make">
+        <MSBuild Projects="LibShell.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="LibCLIShell">
+        <MSBuild Projects="..\..\LibCLIShell\Sources\LibCLIShell.dproj"/>
+    </Target>
+    <Target Name="LibCLIShell:Clean">
+        <MSBuild Projects="..\..\LibCLIShell\Sources\LibCLIShell.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="LibCLIShell:Make">
+        <MSBuild Projects="..\..\LibCLIShell\Sources\LibCLIShell.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="LibShell;LibCLIShell"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="LibShell:Clean;LibCLIShell:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="LibShell:Make;LibCLIShell:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
